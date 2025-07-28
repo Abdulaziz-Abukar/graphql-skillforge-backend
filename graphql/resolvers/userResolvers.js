@@ -1,6 +1,5 @@
 const { GraphQLError } = require("graphql");
 const User = require("../../models/User");
-const Skill = require("../../models/Skill");
 const { signToken } = require("../../utils/auth");
 const bcrypt = require("bcrypt");
 
