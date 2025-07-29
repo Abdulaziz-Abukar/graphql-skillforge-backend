@@ -9,9 +9,9 @@ const skillResolvers = {
       try {
         if (!user) throw new GraphQLError("Not authenticated");
 
-        const skills = await Skill.find({ owner: user._id }).populate(
-          "modules"
-        );
+        const skills = await Skill.find({ owner: user._id })
+          .populate("owner")
+          .populate("modules");
 
         if (!skills.length) return [];
 
@@ -30,7 +30,9 @@ const skillResolvers = {
           throw new GraphQLError("Invalid ID Submitted");
         }
 
-        const skill = await Skill.findById(id).populate("modules");
+        const skill = await Skill.findById(id)
+          .populate("owner")
+          .populate("modules");
 
         if (String(skill.owner) !== String(user._id)) {
           throw new GraphQLError("Not authorized to view this skill");
@@ -59,7 +61,9 @@ const skillResolvers = {
           query.title = { $regex: search, $options: "i" }; // case-insensitive search
         }
 
-        const skills = await Skill.find(query).populate("modules");
+        const skills = await Skill.find(query)
+          .populate("owner")
+          .populate("modules");
 
         return skills;
       } catch (err) {
@@ -104,10 +108,12 @@ const skillResolvers = {
           throw new GraphQLError("Invalid ID Submitted");
         }
 
-        const skill = await Skill.findById(id);
+        const skill = await Skill.findById(id)
+          .populate("owner")
+          .populate("modules");
         if (!skill) throw new GraphQLError("Skill not found");
 
-        if (String(skill.owner) !== String(user._id)) {
+        if (String(skill.owner._id) !== String(user._id)) {
           throw new GraphQLError("Not authorized to update this skill");
         }
 

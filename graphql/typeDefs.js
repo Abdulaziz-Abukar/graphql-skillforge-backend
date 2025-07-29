@@ -44,6 +44,12 @@ const typeDefs = `#graphql
         difficulty: Difficulty!
     }
 
+    input SkillUpdate {
+        title: String
+        description: String
+        difficulty: Difficulty
+    }
+
     input ModuleInput {
         title: String!
         notes: String
@@ -71,7 +77,7 @@ const typeDefs = `#graphql
         signup(input: SignupInput!): AuthPayload
         login(input: LoginInput!): AuthPayload
         createSkill(input: SkillInput!): Skill
-        updateSkill(id: ID!, input: SkillInput!): Skill
+        updateSkill(id: ID!, input: SkillUpdate!): Skill
         deleteSkill(id: ID!): Boolean
         addModule(skillId: ID!, input: ModuleInput!): Module
         updateModule(id: ID!, input: ModuleInput!): Module

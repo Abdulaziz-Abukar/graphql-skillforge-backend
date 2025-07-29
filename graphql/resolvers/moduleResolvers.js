@@ -94,15 +94,15 @@ const moduleResolver = {
       }
     },
 
-    toggleModuleComplete: async (_, { id }, { user }) => {
+    toggleModuleComplete: async (_, { moduleId }, { user }) => {
       try {
         if (!user) throw new GraphQLError("Not authenticated");
 
-        if (!mongoose.Types.ObjectId.isValid(id)) {
+        if (!mongoose.Types.ObjectId.isValid(moduleId)) {
           throw new GraphQLError("Invalid ID Submitted");
         }
 
-        const toggleModule = await Module.findById(id).populate("skill");
+        const toggleModule = await Module.findById(moduleId).populate("skill");
 
         if (!toggleModule) throw new GraphQLError("Module does not exist");
 
@@ -124,3 +124,5 @@ const moduleResolver = {
     },
   },
 };
+
+module.exports = moduleResolver;
