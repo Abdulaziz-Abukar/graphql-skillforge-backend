@@ -82,6 +82,7 @@ const skillResolvers = {
           title,
           description,
           difficulty,
+          owner: user._id,
         });
 
         return newSkill;

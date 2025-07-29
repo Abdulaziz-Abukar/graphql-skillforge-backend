@@ -12,6 +12,8 @@ const skillSchema = new mongoose.Schema({
     required: true,
   },
 
+  description: String,
+
   createdAt: {
     type: Date,
     default: Date.now(),

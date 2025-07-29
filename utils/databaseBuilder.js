@@ -16,12 +16,16 @@ function startServer() {
       console.log("MongoDB Connection successful");
 
       // create server
-      const server = new ApolloServer({ typeDefs, resolvers });
+      const server = new ApolloServer({
+        typeDefs,
+        resolvers,
+        introspection: true,
+      });
 
       startStandaloneServer(server, {
         listen: { port: Number(PORT) },
         context: async ({ req }) => {
-          const auth = req.headers.authorization || "";
+          const auth = req?.headers?.authorization || "";
           const token = auth.split(" ")[1]; // Bearer <token>
 
           if (!token) return { user: null };
@@ -30,7 +34,8 @@ function startServer() {
             const decoded = verifyToken(token);
             const user = await User.findById(decoded.id);
             return { user };
-          } catch {
+          } catch (err) {
+            console.error("Token error:", err.message, err.stack); // add stack trace
             return { user: null };
           }
         },
