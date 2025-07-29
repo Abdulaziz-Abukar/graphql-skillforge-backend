@@ -1,6 +1,7 @@
 const { GraphQLDateTime } = require("graphql-scalars");
 const userResolvers = require("./userResolvers");
 const skillResolvers = require("./skillResolvers");
+const moduleResolver = require("./moduleResolvers");
 
 const resolvers = {
   Date: GraphQLDateTime,
@@ -11,6 +12,7 @@ const resolvers = {
   Mutation: {
     ...userResolvers.Mutation,
     ...skillResolvers.Mutation,
+    ...moduleResolver.Mutation,
   },
 };
 

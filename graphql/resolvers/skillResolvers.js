@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { GraphQLError, graphql } = require("graphql");
+const { GraphQLError } = require("graphql");
 const Skill = require("../../models/Skill");
 const Module = require("../../models/Module");
 
